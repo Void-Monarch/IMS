@@ -1,6 +1,2 @@
-# IMS
-
-Inventory Management System
-
-2st comit and push
-Added files
+# inventory-management
+This is a inventory management system

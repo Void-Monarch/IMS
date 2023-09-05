@@ -29,8 +29,8 @@ class Order(models.Model):
         ('complete', 'Complete'),
         ('reject', 'Rejected'),
     )
-    product = models.ManyToManyField(Product, through='OrderItem')
-    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
     created_date = models.DateField(auto_now_add=True)
@@ -46,22 +46,6 @@ class Order(models.Model):
         self.total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-
-
-
-
-
-
-
-
-
-
-
-# Payment start
 
 class Payment(models.Model):
 

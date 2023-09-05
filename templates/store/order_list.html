@@ -45,6 +45,7 @@
                                 {% comment %} <th>Quantity</th> {% endcomment %}
                                 <th>Total</th>
                                 <th>Date</th>
+                                <th>&nbsp&nbsp&nbsp Docs</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -61,6 +62,7 @@
                                 <td>{{ order.total }}</td>
 
                                 <td>{{ order.created_date }}</td>
+                                <td><a class="btn btn-info" href="">Docs</a></td>
                                 <td>
                                     {% if order.status == 'pending' %}
                                         <a class="btn btn-warning" href="{% url 'gateway' order.id %}">{{ order.status }}</a>
