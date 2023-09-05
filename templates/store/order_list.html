@@ -65,7 +65,7 @@
                                 <td>{{ order.total }}</td>
 
                                 <td>{{ order.created_date }}</td>
-                                <td><a class="btn btn-info" href="">Docs</a></td>
+                                <td><a class="btn btn-info" href="{% url 'view_invoice_detail' order.id %}">Docs</a></td>
                                 <td>
                                     <a href="{% url 'delete_order' order.id %}">
                                         <button class="btn" >

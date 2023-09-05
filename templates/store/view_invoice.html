@@ -110,7 +110,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Order</h1>
+                        <h1>Invoice</h1>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <label class="m-0 font-weight-bold text-primary">Products</label>
+                <label class="m-0 font-weight-bold text-primary">Invoices</label>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -187,5 +187,12 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="d-flex justify-content-end" style="text-decoration: none">
+
+    <a href="{% url 'delete_order_all_in' %}" style="text-decoration: none">
+        <div class="p-2" style="text-decoration: none;color:red">Delete All Orders</div>
+    </a>
 </div>
 {% endblock content %}

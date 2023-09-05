@@ -16,6 +16,7 @@ urlpatterns = [
     # DELETE ALL
     path('product-list/delete_all', delete_product_all, name='delete_product_all'),
     path('order-list/delete_all', delete_order_all, name='delete_order_all'),
+    path('view_invoice/delete_all', delete_order_all_in, name='delete_order_all_in'),
     
     path('order-list/<int:order_id>', delete_order, name='delete_order'),
     path('order-list/<int:order_id>', delete_order_in, name='delete_order-in'),

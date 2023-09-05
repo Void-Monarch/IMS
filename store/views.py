@@ -100,6 +100,12 @@ def delete_order_all(request):
     # Redirect to the product list page or any other appropriate page.
     return HttpResponseRedirect(reverse('order-list'))
 
+def delete_order_all_in(request):
+    # Retrieve the product using its ID
+    Order.objects.all().delete()
+
+    # Redirect to the product list page or any other appropriate page.
+    return HttpResponseRedirect(reverse('view_invoice'))
 
 
 
