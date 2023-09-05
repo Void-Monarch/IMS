@@ -30,6 +30,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 
+<!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    {% comment %} <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
+
+    <!-- Core plugin JavaScript-->
+    {% comment %} <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script> {% endcomment %}
+
+    <!-- Custom scripts for all pages-->
+    {% comment %} <script src="{% static 'js/sb-admin-2.min.js' %}"></script> {% endcomment %}
+
+    <!-- Page level plugins -->
+    {% comment %} <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script> {% endcomment %}
+
+    <!-- Page level custom scripts -->
+    {% comment %} <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script> {% endcomment %}
+
+
    <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;
@@ -318,5 +336,9 @@
             // Bar Chart #flotBarChart End
         });
     </script>
+
+    
+{% block custom_js %}{% endblock %}
+
 </body>
 </html>

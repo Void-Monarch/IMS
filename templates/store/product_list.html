@@ -90,7 +90,7 @@
                             <tr>
                                 <th class="serial">#</th>
                                 <th>Name</th>
-                                <th>Sort No</th>
+                                <th>Product Unit</th>
                                 <th>Price</th>
                                 <th>Date</th>
                                 <th><span style=" padding-right:3rem " >Delete</span></th>
@@ -102,7 +102,7 @@
                             <tr>
                                 <td class="serial">{{ forloop.counter }}</td>
                                 <td>{{ product.name }}</td>
-                                <td>{{ product.sortno }}</td>
+                                <td>{{ product.product_unit}}</td>
                                 <td>{{ product.price }}</td>
                                 <td>{{ product.created_date }}</td>
                                 <td>
@@ -133,9 +133,15 @@
       <!-- /.col-lg-8 -->
     </div>
     <div class="d-flex justify-content-end" style="text-decoration: none">
+        
+        <a href="{% url 'delete_product_all' %}" style="text-decoration: none">
+            <div class="p-2" style="text-decoration: none;color:red">Delete All Products</div>
+        </a>
+        
         <a href="{% url 'create-product' %}" style="text-decoration: none">
         <div class="p-2" style="text-decoration: none">Add Product</div>
         </a>
+
     </div>
     
 

@@ -1,12 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
+from django.http import HttpResponse
 from users.models import User
 from .models import *
 from .forms import *
+
+from utils.filehandler import handle_file_upload
+
+from .forms import *
+from .models import *
+import pandas as pd
 
 
 # Buyer views
@@ -60,39 +66,146 @@ def delete_product(request, product_id):
     return HttpResponseRedirect(reverse('product-list'))
 
 
+def delete_product_all(request):
+    # Retrieve the product using its ID
+    Product.objects.all().delete()
+
+    # Redirect to the product list page or any other appropriate page.
+    return HttpResponseRedirect(reverse('product-list'))
+
+
+
+def delete_order(request, order_id):
+    # Retrieve the product using its ID
+    data = get_object_or_404(Order, id=order_id)
+    data.delete()
+
+    # Redirect to the product list page or any other appropriate page.
+    return HttpResponseRedirect(reverse('order-list'))
+
+
+def delete_order_in(request, order_id):
+    # Retrieve the product using its ID
+    data = get_object_or_404(Order, id=order_id)
+    data.delete()
+
+    # Redirect to the product list page or any other appropriate page.
+    return HttpResponseRedirect(reverse('view-invoice'))
+
+
+def delete_order_all(request):
+    # Retrieve the product using its ID
+    Order.objects.all().delete()
+
+    # Redirect to the product list page or any other appropriate page.
+    return HttpResponseRedirect(reverse('order-list'))
+
+
+
+
+
 class ProductListView(ListView):
     model = Product
     template_name = 'store/product_list.html'
     context_object_name = 'product'
 
 
+def getTotalIncome():
+    allInvoice = Order.objects.all()
+    totalIncome = 0
+    for curr in allInvoice:
+        totalIncome += curr.total
+    return totalIncome
+
 # Order views
+
+
 @login_required(login_url='login')
 def create_order(request):
-    forms = OrderForm()
-    if request.method == 'POST':
-        forms = OrderForm(request.POST)
-        if forms.is_valid():
 
-            product = forms.cleaned_data['product']
-            buyer = forms.cleaned_data['buyer']
-            quantity = forms.cleaned_data['quantity']
+    total_product = Product.objects.count()
+    # total_customer = Customer.objects.count()
+    total_invoice = Order.objects.count()
+    total_income = getTotalIncome()
 
-            Order.objects.create(
-
-                product=product,
-
-                buyer=buyer,
-                quantity=quantity,
-
-
+    form = OrderForm()
+    formset = InvoiceDetailFormSet()
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        formset = InvoiceDetailFormSet(request.POST)
+        if form.is_valid():
+            invoice = Order.objects.create(
+                buyer=form.cleaned_data.get("buyer"),
                 status='pending'
             )
+        if formset.is_valid():
+            total = 0
+            for form in formset:
+                product = form.cleaned_data.get("product")
+                amount = form.cleaned_data.get("amount")
+                if product and amount:
+                    # Sum each row
+                    sum = float(product.price) * float(amount)
+                    # Sum of total invoice
+                    total += sum
+                    InvoiceDetail(
+                        invoice=invoice, product=product, amount=amount
+                    ).save()
+
+            invoice.total = total
+            invoice.save()
             return redirect('order-list')
+
     context = {
-        'form': forms
+        "total_product": total_product,
+        # "total_customer": total_customer,
+        "total_invoice": total_invoice,
+        "total_income": total_income,
+        "form": form,
+        "formset": formset,
     }
     return render(request, 'store/addOrder.html', context)
+
+
+def view_invoice(request):
+    total_product = Product.objects.count()
+    # total_customer = Customer.objects.count()
+    total_invoice = Order.objects.count()
+    total_income = getTotalIncome()
+
+    invoice = Order.objects.all()
+
+    context = {
+        "total_product": total_product,
+        # "total_customer": total_customer,
+        "total_invoice": total_invoice,
+        "total_income": total_income,
+        "invoice": invoice,
+    }
+
+    return render(request, "store/view_invoice.html", context)
+
+
+# Detail view of invoices
+def view_invoice_detail(request, pk):
+    total_product = Product.objects.count()
+    # total_customer = Customer.objects.count()
+    total_invoice = Order.objects.count()
+    total_income = getTotalIncome()
+
+    invoice = Order.objects.get(id=pk)
+    invoice_detail = InvoiceDetail.objects.filter(invoice=invoice)
+
+    context = {
+        "total_product": total_product,
+        # "total_customer": total_customer,
+        "total_invoice": total_invoice,
+        "total_income": total_income,
+        # 'invoice': invoice,
+        "invoice_detail": invoice_detail,
+    }
+
+    return render(request, "store/view_invoice_detail.html", context)
 
 
 class OrderListView(ListView):
@@ -103,8 +216,6 @@ class OrderListView(ListView):
         context = super().get_context_data(**kwargs)
         context['order'] = Order.objects.all().order_by('-id')
         return context
-
-
 
 
 def paymentGateway(request, order_id):
@@ -138,3 +249,77 @@ class SalesListView(ListView):
         context = super().get_context_data(**kwargs)
         context['Payment'] = Payment.objects.all().order_by('-id')
         return context
+
+
+# def download_all(request):
+#     # Download all invoice to excel file
+#     # Download all product to excel file
+#     # Download all customer to excel file
+
+#     allInvoiceDetails = InvoiceDetail.objects.all()
+#     invoiceAndProduct = {
+#         "invoice_id": [],
+#         "invoice_date": [],
+#         "invoice_customer": [],
+#         "invoice_email": [],
+#         "invoice_comments": [],
+#         "product_name": [],
+#         "product_price": [],
+#         "product_unit": [],
+#         "product_amount": [],
+#         "invoice_total": [],
+
+#     }
+#     for curr in allInvoiceDetails:
+#         invoice = Order.objects.get(id=curr.invoice_id)
+#         product = Product.objects.get(id=curr.product_id)
+#         invoiceAndProduct["invoice_id"].append(invoice.id)
+#         invoiceAndProduct["invoice_date"].append(invoice.date)
+#         invoiceAndProduct["invoice_customer"].append(invoice.buyer)
+#         invoiceAndProduct["invoice_email"].append(invoice.email)
+#         invoiceAndProduct["invoice_comments"].append(invoice.comments)
+#         invoiceAndProduct["product_name"].append(product.product_name)
+#         invoiceAndProduct["product_price"].append(product.product_price)
+#         invoiceAndProduct["product_unit"].append(product.product_unit)
+#         invoiceAndProduct["product_amount"].append(curr.amount)
+#         invoiceAndProduct["invoice_total"].append(invoice.total)
+
+#     df = pd.DataFrame(invoiceAndProduct)
+#     df.to_excel("static/excel/allInvoices.xlsx", index=False)
+#     response = HttpResponse(content_type='application/ms-excel')
+#     response['Content-Disposition'] = 'attachment; filename="allInvoices.xlsx"'
+#     with open("static/excel/allInvoices.xlsx", "rb") as f:
+#         response.write(f.read())
+#     return response
+
+
+def upload_product_from_excel(request):
+    # Upload excel file to static folder "excel"
+    # add all product to database
+    # save product to database
+    # redirect to view_product
+    try:
+        excelForm = excelUploadForm(request.POST or None, request.FILES or None)
+        print("Reached HERE!")
+        if request.method == "POST":
+            print("Reached HERE2222!")
+
+            handle_file_upload(request.FILES["excel_file"])
+            excel_file = "static/excel/masterfile.xlsx"
+            df = pd.read_excel(excel_file)
+            # Product.objects.all().delete()
+            try:
+                for index, row in df.iterrows():
+                    product = Product(
+                        name=row["product_name"],
+                        price=row["product_price"],
+                        product_unit=row["product_unit"],
+                    )
+                    print(product)
+                    product.save()
+            except:
+                return redirect("product-list")
+            return redirect("product-list")
+    except:
+        return redirect("product-list")
+    return render(request, "store/upload_products.html", {"excelForm": excelForm})

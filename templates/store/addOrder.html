@@ -9,7 +9,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Product</h1>
+                        <h1>Order</h1>
                     </div>
                 </div>
             </div>
@@ -38,23 +38,33 @@
                     <div class="card-body">
                         <form action="#" method="post" novalidate="novalidate">
                             {% csrf_token %}
-                            
-                            <div class="form-group">
-                                <label for="product" class="control-label mb-1">Product</label>
-                                {{ form.product }}
-                            </div>
-
-                            <div class="form-group">
-                                <label for="quantity" class="control-label mb-1">Quantity</label>
-                                {{ form.quantity }}
-                            </div>
-                            
+                                      
                             <div class="form-group">
                                 <label for="buyer" class="control-label mb-1">Buyer</label>
                                 {{ form.buyer }}
                             </div>
+
+                            {{ formset.management_form }}
+                    {% for form in formset %}
+                    <div class="table">
+                        <table class="table">
+                            <tr>
+                                <td style="border: 0; padding: 0 0.5em 0 0; width: 80%">
+                                    <label class="form-label" for="invoice_detail_product">Product name</label>
+                                    {{form.product}}
+                                </td>
+                                <td style="border: 0; padding: 0 0 0 0.5em;">
+                                    <label class="form-label" for="invoice_detail_amount">Amounts</label>
+                                    {{form.amount}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    {% endfor %}
                             
                             <div>
+                                <input class="btn btn-outline-warning add-form-row" style="margin: 0 1em 0 1em; width: 40%"
+                            type="button" value="Add more product" id="add_more">
                                 <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block">
                                     <span id="payment-button-amount">Save</span>
                                 </button>
@@ -69,3 +79,30 @@
     </div><!--/.col-->
 </div>
 {% endblock content %}
+
+
+
+{% block custom_js %}
+<script>
+    function cloneMore(selector, type) {
+        var newElement = $(selector).clone(true);
+        var total = $('#id_' + type + '-TOTAL_FORMS').val();
+        newElement.find(':input').each(function () {
+            var name = $(this).attr('name').replace('-' + (total - 1) + '-', '-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({ 'name': name, 'id': id }).val('').removeAttr('checked');
+        });
+        newElement.find('label').each(function () {
+            var newFor = $(this).attr('for').replace('-' + (total - 1) + '-', '-' + total + '-');
+            $(this).attr('for', newFor);
+        });
+        total++;
+        $('#id_' + type + '-TOTAL_FORMS').val(total);
+        $(selector).after(newElement);
+    }
+
+    $('#add_more').click(function () {
+        cloneMore('div.table:last', 'form');
+    });
+</script>
+{% endblock %}

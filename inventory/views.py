@@ -11,6 +11,7 @@ def dashboard(request):
     total_buyer = Buyer.objects.count()
     total_oder = Order.objects.count()
     orders = Order.objects.all().order_by('-id')
+    Invoice = InvoiceDetail.objects.all().order_by('-id')
 
     total_sales = Order.objects.aggregate(Sum('total'))
     context = {
@@ -18,6 +19,7 @@ def dashboard(request):
         'buyer': total_buyer,
         'order': total_oder,
         'orders': orders,
+        'invoice': Invoice,
         'total_sales': total_sales['total__sum'],
     }
     return render(request, 'dashboard.html', context)

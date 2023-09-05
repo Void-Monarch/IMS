@@ -15,8 +15,8 @@ class Buyer(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    sortno = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    product_unit = models.CharField(max_length=12)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
     created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -29,22 +29,27 @@ class Order(models.Model):
         ('complete', 'Complete'),
         ('reject', 'Rejected'),
     )
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
 
     buyer = models.ForeignKey(Buyer, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICE)
     created_date = models.DateField(auto_now_add=True)
-    quantity = models.PositiveIntegerField()
-    total = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0)  # Add the total field
+    total = models.FloatField(default=0)  # Add the total field
 
     def __str__(self):
-        return self.product.name
+        return str(self.id)
 
-    # Override the save method to calculate and save the total
-    def save(self, *args, **kwargs):
-        self.total = self.product.price * self.quantity
-        super().save(*args, **kwargs)
+
+class InvoiceDetail(models.Model):
+    invoice = models.ForeignKey(
+        Order, on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.ForeignKey(
+        Product, on_delete=models.SET_NULL, blank=True, null=True)
+    amount = models.IntegerField(default=1)
+
+    @property
+    def get_total_bill(self):
+        total = float(self.product.price) * float(self.amount)
+        return total
 
 
 class Payment(models.Model):

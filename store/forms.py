@@ -1,6 +1,6 @@
 from django import forms
-
-from .models import Product, Order, Payment
+from django.forms import formset_factory
+from .models import *
 
 
 class BuyerForm(forms.Form):
@@ -33,10 +33,10 @@ class BuyerForm(forms.Form):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name', 'sortno', 'price']
+        fields = ['name', 'product_unit', 'price']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'name'}),
-            'sortno': forms.NumberInput(attrs={'class': 'form-control', 'id': 'sortno'}),
+            'product_unit': forms.NumberInput(attrs={'class': 'form-control', 'id': 'product_unit'}),
             'price': forms.NumberInput(attrs={'class': 'form-control', 'id': 'price'})
         }
 
@@ -44,15 +44,41 @@ class ProductForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['product', 'buyer', 'quantity']
-        
-        
+        fields = ['buyer',]
 
         widgets = {
-            'product': forms.Select(attrs={'class': 'form-control', 'id': 'product'}),
             'buyer': forms.Select(attrs={'class': 'form-control', 'id': 'buyer'}),
-            'quantity': forms.NumberInput(attrs={'class': 'form-control', 'id': 'quantity'}),
         }
+
+
+class InvoiceDetailForm(forms.ModelForm):
+    class Meta:
+        model = InvoiceDetail
+        fields = [
+            'product',
+            'amount',
+        ]
+        widgets = {
+            'product': forms.Select(attrs={
+                'class': 'form-control',
+                'id': 'invoice_detail_product',
+            }),
+            'amount': forms.TextInput(attrs={
+                'class': 'form-control',
+                'id': 'invoice_detail_amount',
+                'placeholder': '0',
+                'type': 'number',
+            })
+        }
+
+
+class excelUploadForm(forms.Form):
+    file = forms.FileField()
+
+
+InvoiceDetailFormSet = formset_factory(InvoiceDetailForm, extra=1)
+
+
 
 
 class paymentForm(forms.ModelForm):
