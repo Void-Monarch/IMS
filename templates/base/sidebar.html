@@ -1,0 +1,47 @@
+
+<aside id="left-panel" class="left-panel" style="background: #e8e9ef">
+    <nav class="navbar navbar-expand-sm navbar-default" style="background: #e8e9ef">
+        <div id="main-menu" class="main-menu collapse navbar-collapse" style="background: #e8e9ef">
+            <ul class="nav navbar-nav">
+                <li class="" style="background: #e8e9ef" >
+                    <a href="{% url 'dashboard' %}" class=""><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                </li>
+                <li class="menu-title " style="color: black">My Store</li><!-- /.menu-title -->
+                
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Buyer</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-buyer' %}">Add</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'buyer-list' %}">View</a></li>
+                    </ul>
+                </li>
+
+                
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list"></i>Product</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-product' %}">Add</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'product-list' %}">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-shopping-cart"></i>Order</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle" style="color: darkblue"></i><a href="{% url 'create-order' %}">Add</a></li>
+                        <li><i class="fa fa-eye" style="color: darkblue"></i><a href="{% url 'order-list' %}">View</a></li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="{% url 'sales' %}" class=""  aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-shopping-cart"></i>Payment</a>
+                    
+                </li>
+
+                
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</aside>

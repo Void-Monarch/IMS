@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Order List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>ORDERS</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header" >
+                    <div class="page-title">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Order List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                               
+                                {% comment %} <th>Product</th> {% endcomment %}
+
+                                <th>Buyer</th>
+                                {% comment %} <th>Quantity</th> {% endcomment %}
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if order %}
+                            {% for order in order %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+
+                                {% comment %} <td>{{ order.product }}</td> {% endcomment %}
+
+                                <td>{{ order.buyer }}</td>
+                                {% comment %} <td>{{ order.quantity }}</td> {% endcomment %}
+                                <td>{{ order.total }}</td>
+
+                                <td>{{ order.created_date }}</td>
+                                <td>
+                                    {% if order.status == 'pending' %}
+                                        <a class="btn btn-warning" href="{% url 'gateway' order.id %}">{{ order.status }}</a>
+                                    {% elif order.status == 'decline' %}
+                                        <a class="btn btn-danger" href="">{{ order.status }}</a>
+                                    {% elif order.status == 'complete' %}
+                                        <a class="btn btn-success" href="">{{ order.status }}</a>
+                                    
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Order Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+    
+
+    
+</div>
+<div class="d-flex justify-content-end" style="text-decoration: none">
+    <a href="{% url 'create-order' %}" style="text-decoration: none">
+    <div class="p-2" style="text-decoration: none">Add Order</div>
+    </a>
+</div>
+{% endblock content %} 
