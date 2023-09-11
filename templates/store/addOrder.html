@@ -63,8 +63,7 @@
                     {% endfor %}
                             
                             <div>
-                                <input class="btn btn-outline-warning add-form-row" style="margin: 0 1em 0 1em; width: 40%"
-                            type="button" value="Add more product" id="add_more">
+                                <input class="btn btn-outline-warning add-form-row" style="margin: 0 1em 0 1em; width: 40%" type="button" value="Add more product" id="add_more">
                                 <button id="payment-button" type="submit" class="btn btn-lg btn-success btn-block">
                                     <span id="payment-button-amount">Save</span>
                                 </button>
@@ -76,33 +75,29 @@
             </div>
         </div> <!-- .card -->
 
+        <script>
+            function cloneMore(selector, type) {
+                var newElement = $(selector).clone(true);
+                var total = $('#id_' + type + '-TOTAL_FORMS').val();
+                newElement.find(':input').each(function () {
+                    var name = $(this).attr('name').replace('-' + (total - 1) + '-', '-' + total + '-');
+                    var id = 'id_' + name;
+                    $(this).attr({ 'name': name, 'id': id }).val('').removeAttr('checked');
+                });
+                newElement.find('label').each(function () {
+                    var newFor = $(this).attr('for').replace('-' + (total - 1) + '-', '-' + total + '-');
+                    $(this).attr('for', newFor);
+                });
+                total++;
+                $('#id_' + type + '-TOTAL_FORMS').val(total);
+                $(selector).after(newElement);
+            }
+        
+            $('#add_more').click(function () {
+                cloneMore('div.table:last', 'form');
+            });
+        </script>
+
     </div><!--/.col-->
 </div>
 {% endblock content %}
-
-
-
-{% block custom_js %}
-<script>
-    function cloneMore(selector, type) {
-        var newElement = $(selector).clone(true);
-        var total = $('#id_' + type + '-TOTAL_FORMS').val();
-        newElement.find(':input').each(function () {
-            var name = $(this).attr('name').replace('-' + (total - 1) + '-', '-' + total + '-');
-            var id = 'id_' + name;
-            $(this).attr({ 'name': name, 'id': id }).val('').removeAttr('checked');
-        });
-        newElement.find('label').each(function () {
-            var newFor = $(this).attr('for').replace('-' + (total - 1) + '-', '-' + total + '-');
-            $(this).attr('for', newFor);
-        });
-        total++;
-        $('#id_' + type + '-TOTAL_FORMS').val(total);
-        $(selector).after(newElement);
-    }
-
-    $('#add_more').click(function () {
-        cloneMore('div.table:last', 'form');
-    });
-</script>
-{% endblock %}
