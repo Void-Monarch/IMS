@@ -1,0 +1,186 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="{% static '/style.css' %}" />
+    <title>IMS</title> 
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <header class="header">
+        <nav class="nav">
+            
+            <div>
+                <a href="{% url 'dashboard' %}" class="site" >IMS</a>
+            </div>
+          
+          <ul class="nav__links">
+            <li class="nav__item">
+              <a class="nav__link" href="#section--1">Features</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#section--2">Store Features</a>
+            </li>
+
+          </ul>
+        </nav>
+  
+        <div class="header__title" style="font-weight: bold;">
+          <h1 style="font-size: 5rem;" >
+            When
+            <!-- Green highlight effect -->
+            <span class="highlight" >Inventory</span>
+            Made<br />
+            <span class="highlight" >easy</span>
+          </h1>
+          <h4 style="font-size: 2rem;">A simpler Inventory Management experience for a simpler life.</h4>
+          <button class="btn--text btn--scroll-to">Learn more &DownArrow;</button>
+          <img
+            src="{% static 'assets/shopping-cart-image.png' %}"
+            class="header__img"
+            alt="Minimalist shop cart"
+          />
+        </div>
+      </header>
+
+      <!-- sections -->
+
+      <section class="section" id="section--1">
+        <div class="section__title">
+          <h2 class="section__description">Features</h2>
+          <h3 class="section__header">
+            Everything you need in a modern IMS and more.
+          </h3>
+        </div>
+  
+        <div class="features">
+          <img
+            src="{% static 'assets/delivery1.webp' %}"
+            data-src="{% static 'assets/delivery1.webp' %}"
+            alt="Computer"
+            class="features__img lazy-img"
+          />
+          <div class="features__feature">
+            <div class="features__icon">
+                <svg>
+                  <img src="{% static 'assets/return.svg' %}" alt="return_logo_min" style="transform:scale(0.8);filter:contrast(70%)">
+  
+                </svg>
+              </div>
+            <h5 class="features__header">Order Management</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde alias
+              sint quos? Accusantium a fugiat porro reiciendis saepe quibusdam
+              debitis ducimus.
+            </p>
+          </div>
+  
+          <div class="features__feature">
+            <div class="features__icon">
+                <svg>
+                  <img src="{% static 'assets/delivery.svg' %}" alt="delivery_logo_min" style="transform:scale(0.8)">
+  
+                </svg>
+              </div>
+            <h5 class="features__header">Easy to Use</h5>
+            <p>
+              Nesciunt quos autem dolorum voluptates cum dolores dicta fuga
+              inventore ab? Nulla incidunt eius numquam sequi iste pariatur
+              quibusdam!
+            </p>
+          </div>
+          <img
+            src="{% static 'assets/return.webp' %}"
+            data-src="{% static 'assets/return.webp' %}"
+            alt="Plant"
+            class="features__img lazy-img"
+          />
+  
+          <img
+            src="{% static 'assets/Credit_Card.webp' %}"
+            data-src="{% static 'assets/Credit_Card.webp' %}"
+            alt="Credit card"
+            class="features__img lazy-img"
+            style="height: 90%;"
+          />
+          <div class="features__feature">
+            
+            <div class="features__icon">
+                <svg>
+                  <img src="{% static 'assets/payment.svg' %}" alt="payment_logo_min" style="transform:scale(0.8)">
+                </svg>
+              </div>
+            <h5 class="features__header">Track Payment</h5>
+            <p>
+              Quasi, fugit in cumque cupiditate reprehenderit debitis animi enim
+              eveniet consequatur odit quam quos possimus assumenda dicta fuga
+              inventore ab.
+            </p>
+          </div>
+        </div>
+      </section>
+  
+<!-- slider -->
+
+<section class="section" id="section--2">
+    <div class="section__title section__title--testimonials">
+      <h2 class="section__description">Not sure yet?</h2>
+      <h3 class="section__header">
+        Check out some of the Features.
+      </h3>
+    </div>
+
+    <div class="slider">
+
+    <div class="slide"><img src="{% static 'assets/addUsingExcel.jpeg' %}" alt="Photo 1" /></div>
+        <div class="slide"><img src="{% static 'assets/stats.png' %}" alt="Photo 2" /></div>
+        <div class="slide"><img src="{% static 'assets/invoices.png' %}" alt="" /></div>
+        <div class="slide"><img src="{% static 'assets/payment.png' %}" alt="Photo 4" /></div>
+
+        <button class="slider__btn slider__btn--left">&larr;</button>
+        <button class="slider__btn slider__btn--right">&rarr;</button>
+        <div class="dots"></div>
+
+    </div>
+  </section>
+    
+
+
+
+  <footer class="footer" id="footer">
+    
+    <ul class="footer__nav">
+      <li class="footer__item">
+        <a class="footer__link" href="https://github.com/Void-Monarch/" target="_blank"><img src="{% static 'assets/github_logo.png' %}" alt="gitlogo" class="gitlogo" />Void-Monarch</a>
+      </li>
+      <li class="footer__item">
+        <a class="footer__link" href="https://www.linkedin.com/in/harsh-parashar-54112024b/" target="_blank"><img src="{% static 'assets/38669.png' %}" alt="linklogo" class="linklogo" /> Harsh Parashar</a>
+      </li>
+      </ul>
+
+    
+  </footer>
+
+
+
+
+
+  <!-- Modal window login -->
+
+
+
+    <script async src="{% static 'script.js' %}"></script>
+  </body>

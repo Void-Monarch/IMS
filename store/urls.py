@@ -24,6 +24,8 @@ urlpatterns = [
     path('order-list/', OrderListView.as_view(), name='order-list'),
     path('sales/', SalesListView.as_view(), name='sales'),
     
+    path('learn-More/', learnMore , name='learnMore'),
+    
     # path('download_all_invoice/', views.download_all,name='download_all_invoice'),
     
     path('upload_product_excel', views.upload_product_from_excel,name='upload_product_excel'),
