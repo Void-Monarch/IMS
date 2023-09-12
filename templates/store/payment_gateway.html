@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -76,6 +72,10 @@ body{
     justify-content: center;
     align-items: center;
     border: 1px solid #ddd
+}
+
+.btn-cancel{
+    background-color: #f05252 !important ;
 }
 
 .box1 .btn.btn-primary:hover {
@@ -273,23 +273,18 @@ form .btn.btn-primary:hover {
                 <span class="h5 fw-bold m-0">Payment methods (FAKE)</span> <div class="btn btn-primary bar">
                     <span class="fas fa-bars"></span></div> 
                 </div> 
+
+
                     <ul class="nav nav-tabs mb-3 px-md-4 px-2"> 
                         <li class="nav-item"> 
                             <a class="nav-link px-2 active" aria-current="page" href="#">Credit Card</a> </li> 
-                            <li class="nav-item"> <a class="nav-link px-2" href="#">Mobile Payment</a> </li> 
-                            <li class="nav-item ms-auto"> <a class="nav-link px-2" href="#">+ More</a> 
-                            </li> </ul> <div class="px-md-5 px-4 mb-4 d-flex align-items-center"> 
-                                <div class="btn btn-success me-4"><span class="fas fa-plus"></span></div> 
-                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group"> 
-                                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked> 
-                                    <label class="btn btn-outline-primary" for="btnradio1">
-                                        <span class="pe-1">+</span>5949</label> 
-                                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"> 
-                                        <label class="btn btn-outline-primary" for="btnradio2"><span class="lpe-1">+</span>3894</label> 
-                                    </div> 
-                                </div> 
+                            <li class="nav-item"> <a class="nav-link px-2" href="#">Cash Payment</a> </li> 
+                             
+                            </li> </ul>
+                            
                                 <form action="#" method="post" novalidate="novalidate">
                                     {% csrf_token %} 
+                                    <br>
                                     <div class="row"> 
                                         <div class="col-12">
                                              <div class="d-flex flex-column px-md-5 px-4 mb-4">
@@ -333,7 +328,15 @@ form .btn.btn-primary:hover {
                                                                     $ {{ order.total }}
                                                             </div> 
                                                         </button>
-                                               
+
+                                                        
+                                                        <button type=button style="margin-left:2rem">
+                                                            <a href="{% url 'order-list' %}" style="text-decoration: none">
+                                                            <div class="btn btn-primary btn-cancel w-100">
+                                                                   Cancel
+                                                            </div> 
+                                                        </button>
+                                                    </a>
                                                     </div> 
                                                 </div> 
                                             </form> 

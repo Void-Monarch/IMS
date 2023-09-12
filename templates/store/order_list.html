@@ -39,7 +39,7 @@
                     <table class="table ">
                         <thead>
                             <tr>
-                                <th class="serial">#</th>
+                                <th class="serial">ID</th>
                                
                                 {% comment %} <th>Product</th> {% endcomment %}
 
@@ -47,8 +47,9 @@
                                 {% comment %} <th>Quantity</th> {% endcomment %}
                                 <th>Total</th>
                                 <th>Date</th>
-                                <th>&nbsp&nbsp&nbsp Docs</th>
+                                <th>&nbsp&nbsp Details</th>
                                 <th style="padding-left:4rem" >Delete</th>
+                                <th>&nbsp&nbsp Pdf</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -56,7 +57,7 @@
                             {% if order %}
                             {% for order in order %}
                             <tr>
-                                <td class="serial">{{ forloop.counter }}</td>
+                                <td class="serial">{{ order.id }}</td>
 
                                 {% comment %} <td>{{ order.product }}</td> {% endcomment %}
 
@@ -65,7 +66,7 @@
                                 <td>{{ order.total }}</td>
 
                                 <td>{{ order.created_date }}</td>
-                                <td><a class="btn btn-info" href="{% url 'view_invoice_detail' order.id %}">Docs</a></td>
+                                <td><a class="btn btn-info" href="{% url 'view_invoice_detail' order.id %}">Details</a></td>
                                 <td>
                                     <a href="{% url 'delete_order' order.id %}">
                                         <button class="btn" >
@@ -75,14 +76,14 @@
                                           </button>
                                         </a>
                                 </td>
+                                <td><a class="btn btn-info" href="{% url 'pdf' order.id %}">Pdf</a></td>
                                 <td>
                                     {% if order.status == 'pending' %}
                                         <a class="btn btn-warning" href="{% url 'gateway' order.id %}">{{ order.status }}</a>
                                     {% elif order.status == 'decline' %}
                                         <a class="btn btn-danger" href="">{{ order.status }}</a>
                                     {% elif order.status == 'complete' %}
-                                        <a class="btn btn-success" href="">{{ order.status }}</a>
-                                    
+                                        <span class="btn btn-success" href="">{{ order.status }}</span>
                                     {% endif %}
                                 </td>
                             </tr>

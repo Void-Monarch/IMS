@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="https://fonts.cdnfonts.com/css/agency-fb" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Invoice </title>
+</head>
+
+<style>
+
+    *{
+        font-family: 'Agency FB', sans-serif;
+    }
+
+    .heading{
+        background-color: brown;
+        width:100%;
+        display:block;
+        padding-left:2rem;
+        font-family: 'Agency FB', sans-serif;
+        padding-top:3rem;
+    }
+
+    .headingContent{
+        font-size:5rem;
+        color:white;
+        font-family: 'Agency FB', sans-serif;
+    }
+    .tableDetails{
+        padding-top:5px;
+    }
+
+</style>
+
+<body>
+    <div class=heading>
+        <div class="headingContent" >Invoice </div>
+    </div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2"><img src="logo.png" width="150"  /></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="49%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      
+          <tr>
+            <td style="font-weight:300; font-size:20px;">Order Number: {{ order.id }}</td>
+          </tr>
+          <tr>
+            <td> Payment made with :  </td>
+          </tr>
+          
+          </table></td>
+      </tr>
+    </table></td>
+    <td width="51%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="right"><img src="logo.png" alt="" width="150"  /></td>
+      </tr>
+      <tr>
+        <td style="font-weight:300; font-size:13px;" align="right"></td>
+      </tr>
+      <tr>
+        <td style="font-weight:300; font-size:13px;"  align="right">&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="font-weight:300; font-size:13px;"  align="right">Order Date : {{ order.created_date }}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600; font-size:15px;" align="right">Customer Name</td>
+      </tr>
+      <tr>
+        <td style="font-weight:300; font-size:13px;" align="right">{{ buyer }}</td>
+      </tr>
+
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" class="tableDetails" width="10%" height="32" align="center">Sr No.</td>
+        <td style="font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" class="tableDetails" width="34%" height="32" align="center">Product</td>
+        <td style="font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" class="tableDetails" width="30%" align="center">Price </td>
+        <td style="font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" class="tableDetails" width="30%" align="center">Amount</td>
+        <td style="font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" class="tableDetails" width="30%" align="center">Total</td>
+      </tr>
+      {% for i in invoice_detail %}
+      <tr>
+        <td style="font-weight:300; font-size:13px; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" class="tableDetails" height="32" align="center">{{forloop.counter}}</td>
+        <td style="font-weight:300; font-size:13px; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" class="tableDetails" height="32" align="center">{{i.product}}</td>
+        <td style="font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" class="tableDetails" align="center">{{i.product.price}}</td>
+        <td style="font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" class="tableDetails" align="center">{{i.amount}}</td>
+        <td style="font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" class="tableDetails" align="center">{{i.get_total_bill}}</td>
+      </tr>
+      {% endfor %}
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr> 
+  <tr>
+    <td align=right colspan="2" style="font-size:15px;padding-right:5px">Grand Total : {{ order.total }}</td>
+  </tr>
+  
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:16px">Summary:</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:12px">Order ID : {{ order.id }}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:12px">Order Date : {{ order.created_date }}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:12px">Buyer ID/Name : {{ buyer.id }} / {{ buyer }}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:12px">Total number of Items : {{ total_items }}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:12px">Grand Total : {{ order.total }}</td>
+  </tr>
+  <tr>
+    <td colspan="2" style="font-size:12px"> {% if payment %} Payment Id : {{ payment.id }}{% endif %}</td>
+  </tr>
+
+
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-weight:600; font-size:13px;" colspan="2">Thank you for using our service</td>
+  </tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="font-weight:300; font-size:13px;" colspan="2" align="center">(This is computer generated receipt and does not require physical signature.) </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+
+
+
+
+</body>
+</html>

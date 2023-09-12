@@ -1,0 +1,86 @@
+
+.gray{
+    color: #333;
+  }
+  
+  .gray-ish{
+    color: #666;
+  }
+  
+  .almost-gray{
+    color: #999;
+  }
+  
+  body{
+    background-color: #eee;
+    padding-top: 25px;
+    height: 100%;
+    margin-top: 40px;
+  }
+  
+  div.container{
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    position: relative;
+    margin-top: 50px;
+  }
+  
+  div.invoice-header{
+    background-color: #444;
+    color: white;
+    border-bottom: 3px solid rgb(255, 77, 77);
+  }
+  
+  div.invoice-header > div > p{
+    font-size: 1.2rem;
+    font-weight: 350;
+  }
+  
+  div.invoice-header > div > h1{
+    font-size: 4rem;
+  }
+  
+  div.invoice-table{
+    border-top: 3px solid rgb(255, 77, 77);
+  }
+  
+  div.invoice-table > table.table > thead, div.invoice-table > table.table > thead.thead > tr, div.invoice-table > table.table > thead.thead > tr > th {
+    border-top: none;
+  }
+  
+  div.total-field{
+    position: relative;
+  }
+  
+  h5.due-date{
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+  }
+  
+  div.sub-table{
+    border-left: 3px solid rgb(255, 77, 77);
+    padding-left: 0;
+  }
+  
+  div.sub-table > table{
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  
+  tr.last-row{
+    margin-top: 25px;
+    background-color: #555;
+    color: white;
+    border-top: 3px solid rgb(255, 77, 77);
+  }
+  
+  p.footer{
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      padding-top: 15px;
+      border-top: 3px solid red;
+  }

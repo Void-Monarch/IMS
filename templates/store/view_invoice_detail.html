@@ -33,7 +33,7 @@
             <!-- Card Header - Dropdown -->
             
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <a href="{% url 'view_invoice' %}"> <label class="m-0 font-weight-bold text-primary"> ← Back </label> </a>
+            <a href="{% url 'view_invoice' %}"> <label class="m-0 font-weight-bold text-primary" style="cursor:pointer"> ← Back </label> </a>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -61,7 +61,7 @@
                                 </td>
                                 <td style="padding: 0.45em;">
                                     {{i.get_total_bill}}
-                                </td>
+                                </td> 
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -71,4 +71,12 @@
         </div>
     </div>
 </div>
+
+<div class="d-flex justify-content-end" style="text-decoration: none">
+
+    <a href="{% url 'pdf' order.id %}" style="text-decoration: none">
+        <div class="p-2" style="text-decoration: none;">Print Invoice</div>
+    </a>
+</div> 
+
 {% endblock content %}

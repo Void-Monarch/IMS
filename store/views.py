@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView
+from django.views.generic import ListView , View
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponse
@@ -9,6 +9,8 @@ from .models import *
 from .forms import *
 
 from utils.filehandler import handle_file_upload
+from utils.process import html_to_pdf 
+from django.template.loader import render_to_string
 
 from .forms import *
 from .models import *
@@ -207,6 +209,7 @@ def view_invoice_detail(request, pk):
         # "total_customer": total_customer,
         "total_invoice": total_invoice,
         "total_income": total_income,
+        "order": invoice,
         # 'invoice': invoice,
         "invoice_detail": invoice_detail,
     }
@@ -228,9 +231,11 @@ def paymentGateway(request, order_id):
     forms = paymentForm()
     orderobj = Order.objects.get(id=order_id)
     if request.method == 'POST':
+        orderobj.status = 'complete'
+        orderobj.save()
         forms = paymentForm(request.POST)
         if forms.is_valid():
-            order = orderobj,
+            
             card_number = forms.cleaned_data['card_number']
             holder = forms.cleaned_data['holder']
 
@@ -240,6 +245,9 @@ def paymentGateway(request, order_id):
                 holder=holder,
                 status='complete',
             )
+            
+            orderobj.status = 'complete'
+            orderobj.save()
 
             return redirect('order-list')
 
@@ -329,3 +337,45 @@ def upload_product_from_excel(request):
     except:
         return redirect("product-list")
     return render(request, "store/upload_products.html", {"excelForm": excelForm})
+
+
+#Creating a class based view
+class GeneratePdf(View):
+   def get(self, request, pk):
+       
+    total_product = Product.objects.count()
+    # total_customer = Customer.objects.count()
+    total_invoice = Order.objects.count()
+    total_income = getTotalIncome()
+
+    invoice = Order.objects.get(id=pk)
+    buyer = Buyer.objects.get(id=invoice.buyer_id)
+    invoice_detail = InvoiceDetail.objects.filter(invoice=invoice)
+    total_items = invoice_detail.count()
+    try:
+        payment = Payment.objects.get(order_id=invoice.id)
+    except:
+       payment = "No details"
+
+
+    context = {
+        "total_product": total_product,
+        # "total_customer": total_customer,
+        "total_invoice": total_invoice,
+        "total_items": total_items,
+        "order": invoice,
+        "buyer": buyer,
+        "payment": payment,
+        "total_income": total_income,
+        # 'invoice': invoice,
+        "invoice_detail": invoice_detail,
+    }
+       
+      
+    open('templates/store/temp.html', "w").write(render_to_string('store/result.html', context ))
+
+        # Converting the HTML template into a PDF file
+    pdf = html_to_pdf('store/temp.html')
+         
+         # rendering the template
+    return HttpResponse(pdf, content_type='application/pdf')

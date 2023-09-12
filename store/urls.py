@@ -33,5 +33,6 @@ urlpatterns = [
         
     path('view_invoice/', views.view_invoice, name='view_invoice'),
     path('view_invoice_detail/<int:pk>/',views.view_invoice_detail, name='view_invoice_detail'),
+    path('pdf/<int:pk>/', GeneratePdf.as_view(), name='pdf'), 
     
 ]

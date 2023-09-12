@@ -8,8 +8,8 @@
 
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <div class="card rounded">
-                <div class="card-body rounded" style="background-color: #4949fb">
+            <div class="card ">
+                <div class="card-body rounded card-detail-body" style="background-color: #4949fb">
                     <div class="stat-widget-five">
                         <div class="stat-icon dib flat-color-1">
                             <i class="fa fa-shopping-cart"></i>
@@ -18,6 +18,7 @@
                             <div class="text-left dib">
                                 <div class="stat-text"><span class="count" style="color: white">{{ order }}</span></div>
                                 <div class="stat-heading" style="color: white">Order</div>
+                                
                             </div>
                         </div>
                     </div>
@@ -27,7 +28,7 @@
 
         <div class="col-lg-3 col-md-6">
             <div class="card">
-                <div class="card-body rounded" style="background-color: #32bb32">
+                <div class="card-body rounded card-detail-body" style="background-color: #32bb32">
                     <div class="stat-widget-five">
                         <div class="stat-icon dib flat-color-2">
                             <i class="fa fa-list"></i>
@@ -45,14 +46,14 @@
 
         <div class="col-lg-3 col-md-6">
             <div class="card">
-                <div class="card-body rounded" style="background-color: #e34545">
+                <div class="card-body rounded card-detail-body" style="background-color: #e34545">
                     <div class="stat-widget-five">
                         <div class="stat-icon dib flat-color-3">
                             <i class="fa fa-user"></i>
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count" style="color: white">{{ total_sales }}</span></div>
+                                <div class="stat-text"><span style="color: white"> ₹</span> <span class="count" style="color: white">{{ total_sales }}</span></div>
                                 <div class="stat-heading" style="color: white">Total Sales</div>
                             </div>
                         </div>
@@ -63,7 +64,7 @@
 
         <div class="col-lg-3 col-md-6">
             <div class="card">
-                <div class="card-body rounded" style="background-color: #e964e4">
+                <div class="card-body rounded card-detail-body" style="background-color: #e964e4">
                     <div class="stat-widget-five">
                         <div class="stat-icon dib flat-color-4">
                             <i class="fa fa-users"></i>
@@ -100,7 +101,7 @@
                                        
                                         <th>Buyer</th>
 
-                                        <th>Total</th> 
+                                        <th>Total (₹) </th> 
                                         <th>Date</th>
                                         <th>Status</th>
                                     </tr>
@@ -108,6 +109,7 @@
                                 <tbody>
                                     {% if order %}
                                     {% for order in orders %}
+                                        {% if forloop.counter < 6 %}
                                     <tr>
                                         <td class="serial">{{ forloop.counter }}</td>
         
@@ -122,14 +124,12 @@
                                         <td>
                                             {% if order.status == 'pending' %}
                                                 <a class="btn btn-warning" href="{% url 'gateway' order.id %}">{{ order.status }}</a>
-                                            {% elif order.status == 'decline' %}
-                                                <a class="btn btn-danger" href="">{{ order.status }}</a>
                                             {% elif order.status == 'complete' %}
-                                                <a class="btn btn-success" href="">{{ order.status }}</a>
-                                            
+                                            <span class="btn btn-success" href="">{{ order.status }}</span>
                                             {% endif %}
                                         </td>
                                     </tr>
+                                        {% endif %}
                                     {% endfor %}
                                     {% else %}
                                         <tr><td>No Order Data</td></tr>
