@@ -34,6 +34,7 @@ class BuyerForm(forms.Form):
         'data-val': 'true',
         'data-val-required': 'Please enter username',
     }))
+    
 
 
 class ProductForm(forms.ModelForm):
@@ -96,4 +97,16 @@ class paymentForm(forms.ModelForm):
             'holder': forms.TextInput(attrs={'class': 'form-control', 'id': 'holder'}),
             'card_number': forms.NumberInput(attrs={'class': 'form-control', 'id': 'card_number'}),
 
+        }
+
+class profileEdit(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name","email",'company','address')
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control js_add_first', 'id': 'form3Example1c'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control js_add_last', 'id': 'form3Example1c'}),
+            'email': forms.TextInput(attrs={'class': 'form-control js_add_email', 'id': 'form3Example1c'}),
+            'company': forms.TextInput(attrs={'class': 'form-control js_add_company', 'id': 'form3Example1c'}),
+            'address': forms.TextInput(attrs={'class': 'form-control js_add_address', 'id': 'form3Example1c'}),
         }

@@ -8,6 +8,9 @@ from users.models import User
 from .models import *
 from .forms import *
 
+from django.conf import settings
+from django.core.mail import send_mail
+
 from utils.filehandler import handle_file_upload
 from utils.process import html_to_pdf 
 from django.template.loader import render_to_string
@@ -29,9 +32,10 @@ def create_buyer(request):
             address = forms.cleaned_data['address']
             email = forms.cleaned_data['email']
             username = forms.cleaned_data['username']
+            name = username
             user = User.objects.create_user(
                 username=username, email=email, is_buyer=True,first_name=first_name,last_name=last_name)
-            Buyer.objects.create(user=user, first_name=first_name,last_name=last_name, address=address)
+            Buyer.objects.create(user=user, first_name=first_name,last_name=last_name, address=address,username=username,name=name)
             return redirect('buyer-list')
     context = {
         'form': forms
@@ -53,6 +57,7 @@ def create_product(request):
         forms = ProductForm(request.POST)
         if forms.is_valid():
             forms.save()
+            
             return redirect('product-list')
     context = {
         'form': forms
@@ -344,3 +349,42 @@ class GeneratePdf(View):
 
 def learnMore(request):
     return render(request, "LearnMore.html")
+
+def profile(request):
+    user = request.user
+    product = Product.objects.count()
+    total_invoice = Order.objects.count()
+    total_buyers = Buyer.objects.count()
+    total_income = getTotalIncome()
+    context = {
+        'product':product,
+        'user':user,
+        'orders':total_invoice,
+        'sales':total_income,
+        'buyers':total_buyers,
+    }
+    return render(request, 'users/profile.html', context)
+
+def profile_edit(request):
+    curr_user = request.user
+    if request.method == "POST":
+        form = profileEdit(request.POST)
+        if form.is_valid():
+            
+            curr_user.first_name = form.cleaned_data["first_name"]
+            curr_user.last_name = form.cleaned_data["last_name"]
+            curr_user.company = form.cleaned_data["company"]
+            curr_user.email = form.cleaned_data["email"]
+            curr_user.address = form.cleaned_data["address"]
+            
+            curr_user.save()
+
+            return redirect('profile')       
+    else:
+        form = profileEdit()
+    context={
+        'user': curr_user,
+        'form': form,
+    }
+
+    return render(request, 'users/profile_edit.html',context=context)

@@ -9,10 +9,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         
-    </head>
-    <body>
+        <style>
+        .body{
+          background: rgb(238,174,202);
+          background: radial-gradient(circle, rgba(238,174,202,1) 13%, rgba(201,148,233,1) 86%);
+        }
+        </style>
 
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark" style="width:100%;padding-left:1rem;">
+    </head>
+    <body class='body'>
+
+        <nav class="navbar navbar-expand-lg navbar navbar-dark " style="width:100%;padding-left:1rem;background-color:#343a40">
             <div class="container-fluid">
               <span class="navbar-brand" href="dashboard">IMS</span>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +38,7 @@
             </div>
           </nav>
 
-        <section class="vh-100" style="background-color: #eee;">
+        <section class="vh-100 body" >
             <div class="container h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-lg-12 col-xl-11">

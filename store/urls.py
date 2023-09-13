@@ -26,6 +26,8 @@ urlpatterns = [
     path('sales/', SalesListView.as_view(), name='sales'),
     
     path('learn-More/', learnMore , name='learnMore'),
+    path('profile/', profile , name='profile'),
+    path('profile-edit/', profile_edit , name='profile_edit'),
     
     # path('download_all_invoice/', views.download_all,name='download_all_invoice'),
     
