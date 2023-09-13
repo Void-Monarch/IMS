@@ -24,13 +24,14 @@ def create_buyer(request):
     if request.method == 'POST':
         forms = BuyerForm(request.POST)
         if forms.is_valid():
-            name = forms.cleaned_data['name']
+            first_name = forms.cleaned_data['first_name']
+            last_name = forms.cleaned_data['last_name']
             address = forms.cleaned_data['address']
             email = forms.cleaned_data['email']
             username = forms.cleaned_data['username']
             user = User.objects.create_user(
-                username=username, email=email, is_buyer=True)
-            Buyer.objects.create(user=user, name=name, address=address)
+                username=username, email=email, is_buyer=True,first_name=first_name,last_name=last_name)
+            Buyer.objects.create(user=user, first_name=first_name,last_name=last_name, address=address)
             return redirect('buyer-list')
     context = {
         'form': forms
@@ -265,46 +266,6 @@ class SalesListView(ListView):
         return context
 
 
-# def download_all(request):
-#     # Download all invoice to excel file
-#     # Download all product to excel file
-#     # Download all customer to excel file
-
-#     allInvoiceDetails = InvoiceDetail.objects.all()
-#     invoiceAndProduct = {
-#         "invoice_id": [],
-#         "invoice_date": [],
-#         "invoice_customer": [],
-#         "invoice_email": [],
-#         "invoice_comments": [],
-#         "product_name": [],
-#         "product_price": [],
-#         "product_unit": [],
-#         "product_amount": [],
-#         "invoice_total": [],
-
-#     }
-#     for curr in allInvoiceDetails:
-#         invoice = Order.objects.get(id=curr.invoice_id)
-#         product = Product.objects.get(id=curr.product_id)
-#         invoiceAndProduct["invoice_id"].append(invoice.id)
-#         invoiceAndProduct["invoice_date"].append(invoice.date)
-#         invoiceAndProduct["invoice_customer"].append(invoice.buyer)
-#         invoiceAndProduct["invoice_email"].append(invoice.email)
-#         invoiceAndProduct["invoice_comments"].append(invoice.comments)
-#         invoiceAndProduct["product_name"].append(product.product_name)
-#         invoiceAndProduct["product_price"].append(product.product_price)
-#         invoiceAndProduct["product_unit"].append(product.product_unit)
-#         invoiceAndProduct["product_amount"].append(curr.amount)
-#         invoiceAndProduct["invoice_total"].append(invoice.total)
-
-#     df = pd.DataFrame(invoiceAndProduct)
-#     df.to_excel("static/excel/allInvoices.xlsx", index=False)
-#     response = HttpResponse(content_type='application/ms-excel')
-#     response['Content-Disposition'] = 'attachment; filename="allInvoices.xlsx"'
-#     with open("static/excel/allInvoices.xlsx", "rb") as f:
-#         response.write(f.read())
-#     return response
 
 
 def upload_product_from_excel(request):

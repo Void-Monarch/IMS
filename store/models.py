@@ -5,7 +5,8 @@ from users.models import User
 
 class Buyer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=120, unique=True)
+    first_name = models.CharField(max_length=120, unique=True)
+    last_name = models.CharField(max_length=120, unique=True)
     address = models.CharField(max_length=220)
     created_date = models.DateField(auto_now_add=True)
 

@@ -4,7 +4,13 @@ from .models import *
 
 
 class BuyerForm(forms.Form):
-    name = forms.CharField(widget=forms.TextInput(attrs={
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id': 'name',
+        'data-val': 'true',
+        'data-val-required': 'Please enter name',
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control',
         'id': 'name',
         'data-val': 'true',

@@ -76,7 +76,7 @@
                                           </button>
                                         </a>
                                 </td>
-                                <td><a class="btn btn-info" href="{% url 'pdf' order.id %}">Pdf</a></td>
+                                <td><a class="btn btn-info" href="{% url 'pdf' order.id %}" target=blank>Pdf</a></td>
                                 <td>
                                     {% if order.status == 'pending' %}
                                         <a class="btn btn-warning" href="{% url 'gateway' order.id %}">{{ order.status }}</a>

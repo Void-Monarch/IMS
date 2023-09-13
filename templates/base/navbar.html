@@ -57,24 +57,39 @@
         <div class="header-menu" >
             
             <div class="nav-item" style="padding-top:6px">
+                <a class="nav-link" href="http://127.0.0.1:8000/admin" style="text-decoration: none;color:grey" > Admin </a>
+            </div>
+            <div class="nav-item" style="padding-top:6px">
                 <a class="nav-link" href="{% url 'learnMore' %}" style="text-decoration: none;color:grey" >Learn More</a>
             </div>
 
-            <div class="user-area dropdown float-right">
-                <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="{% static 'images/icons/client.png' %}" alt="User Avatar">
-                </a>
+            <div class="btn-group" style="padding-top:5px;" >
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-right:1rem">
+                  Account
+                </button>
+                <div class="dropdown-menu" style="margin-top:3.2rem">
+                  <a class="dropdown-item" href="#">Account</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'logout' %}">
+                    <button type="button" class="btn btn-danger ">
+                        Logout
+                    </button>
+                  </a>
+                </div>
+              </div>  
 
-                <div class="user-menu dropdown-menu">
+        </div>
+    </div>
+</header>
+
+
+
+{% comment %} =============
+<div class="user-menu dropdown-menu">
 
                     <a class="nav-link" href="{% url 'logout' %}">
                         <button>
                        <span> Logout </span>
                         </button>
                     </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</header>
+                </div> {% endcomment %}
