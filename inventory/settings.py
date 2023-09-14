@@ -127,3 +127,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 AUTH_USER_MODEL = 'users.User'
+
+RAZOR_KEY_ID = 'rzp_test_CyGKxk7SDfClFI'
+RAZOR_KEY_SECRET = 'yjWmR2X9SNKUbWyQpRDvhNJJ'
+
