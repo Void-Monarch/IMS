@@ -92,6 +92,7 @@
                                 <th>Name</th>
                                 <th>Product Unit</th>
                                 <th>Price</th>
+                                {% comment %} <th>Total Quantity</th> {% endcomment %}
                                 <th>Date</th>
                                 <th><span style=" padding-right:3rem " >Delete</span></th>
                             </tr>
@@ -104,6 +105,7 @@
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.product_unit}}</td>
                                 <td>{{ product.price }}</td>
+                                {% comment %} <td align=center>{{ product.total_quantity }}</td> {% endcomment %}
                                 <td>{{ product.created_date }}</td>
                                 <td>
                                     <a href="{% url 'delete_product' product.id %}">

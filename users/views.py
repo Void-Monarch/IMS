@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
-
+from django.contrib import messages
 from .forms import LoginForm
 
 def login_page(request):
@@ -15,6 +15,9 @@ def login_page(request):
             if user:
                 login(request, user)
                 return redirect('dashboard')
+            else:
+                messages.error(request, "Invalid Credentials")
+                return redirect("login")
     context = {'form': forms}
     return render(request, 'users/login.html', context)
 
@@ -44,4 +47,4 @@ def register(request):
     context={
         'form': form,
     }
-    return render(request, "users/register.html",context=context)
+    return render(request, "users/register.html", context=context)

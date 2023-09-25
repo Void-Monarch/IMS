@@ -36,7 +36,7 @@
                 <!-- Credit Card -->
                 <div id="pay-invoice">
                     <div class="card-body">
-                        <form action="#" method="post" novalidate="novalidate">
+                        <form action="#" method="post" >
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name" class="control-label mb-1">Name</label>
@@ -46,6 +46,10 @@
                                 <label for="product_unit" class="control-label mb-1">Product Unit</label>
                                 {{ form.product_unit }}
                             </div>
+                            {% comment %} <div class="form-group">
+                                <label for="product_unit" class="control-label mb-1">Total Quantity</label>
+                                {{ form.total_quantity }}
+                            </div> {% endcomment %}
                             <div class="form-group">
                                 <label for="price" class="control-label mb-1">Price</label>
                                 {{ form.price }}
@@ -64,4 +68,12 @@
 
     </div><!--/.col-->
 </div>
+<script>
+
+    let ele = document.querySelectorAll('.form-control');
+    ele.forEach( (e) => {
+      e.required = true;
+    })
+
+  </script>
 {% endblock content %}

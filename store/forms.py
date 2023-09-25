@@ -5,31 +5,31 @@ from .models import *
 
 class BuyerForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control buyer-req',
         'id': 'name',
         'data-val': 'true',
         'data-val-required': 'Please enter name',
     }))
     last_name = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control buyer-req ',
         'id': 'name',
         'data-val': 'true',
         'data-val-required': 'Please enter name',
     }))
     address = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control ',
         'id': 'address',
         'data-val': 'true',
         'data-val-required': 'Please enter address',
     }))
     email = forms.CharField(widget=forms.EmailInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control buyer-req',
         'id': 'email',
         'data-val': 'true',
         'data-val-required': 'Please enter email',
     }))
     username = forms.CharField(widget=forms.TextInput(attrs={
-        'class': 'form-control',
+        'class': 'form-control buyer-req',
         'id': 'username',
         'data-val': 'true',
         'data-val-required': 'Please enter username',
@@ -42,9 +42,9 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = ['name', 'product_unit', 'price']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'name'}),
-            'product_unit': forms.NumberInput(attrs={'class': 'form-control', 'id': 'product_unit'}),
-            'price': forms.NumberInput(attrs={'class': 'form-control', 'id': 'price'})
+            'name': forms.TextInput(attrs={'class': 'form-control', 'id': 'name','placeholder':'Product Name'}),
+            'product_unit': forms.NumberInput(attrs={'class': 'form-control', 'id': 'product_unit','placeholder':'Only Number'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'id': 'price','placeholder':'Only Number'})
         }
 
 
@@ -73,7 +73,7 @@ class InvoiceDetailForm(forms.ModelForm):
             'amount': forms.TextInput(attrs={
                 'class': 'form-control',
                 'id': 'invoice_detail_amount',
-                'placeholder': '0',
+                'placeholder': '1',
                 'type': 'number',
             })
         }

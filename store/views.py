@@ -14,13 +14,14 @@ from django.core.mail import send_mail
 from utils.filehandler import handle_file_upload
 from utils.process import html_to_pdf 
 from django.template.loader import render_to_string
+from django.contrib import messages
 
 from .forms import *
 from .models import *
 import pandas as pd
 
 
-# Buyer views
+# Buyer views 
 @login_required(login_url='login')
 def create_buyer(request):
     forms = BuyerForm()
@@ -32,6 +33,11 @@ def create_buyer(request):
             address = forms.cleaned_data['address']
             email = forms.cleaned_data['email']
             username = forms.cleaned_data['username']
+            
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "An User with this UserName already Exists")
+                return redirect("create-buyer")
+            
             name = username
             user = User.objects.create_user(
                 username=username, email=email, is_buyer=True,first_name=first_name,last_name=last_name)

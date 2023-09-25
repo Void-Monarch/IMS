@@ -17,8 +17,9 @@ class Buyer(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=120, unique=True)
+    name = models.CharField(max_length=120, unique=True,help_text = "Enter Product Name")
     product_unit = models.CharField(max_length=12)
+    # total_quantity = models.PositiveIntegerField(max_length=16,default=1)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     created_date = models.DateField(auto_now_add=True)
 

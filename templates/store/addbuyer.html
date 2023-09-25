@@ -27,6 +27,16 @@
 
 {% block content %}
 <div class="row">
+    {% if messages %}
+    {% for message in messages %}
+    
+<div class="alert alert-danger" role="alert">
+<div style="display:flex;justify-content: space-between;"><div> An User with this UserName already Exists</div>  <div><a href="{% url 'create-buyer' %}" style="text-decoration: none;" > X </a></div> </div>
+</div>
+
+  {% endfor %}
+    {% endif %}
+
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
@@ -36,7 +46,7 @@
                 <!-- Credit Card -->
                 <div id="pay-invoice">
                     <div class="card-body">
-                        <form action="#" method="post" novalidate="novalidate">
+                        <form action="#" method="post" >
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="name" class="control-label mb-1">First Name</label>
@@ -73,4 +83,12 @@
 
     </div><!--/.col-->
 </div>
+<script>
+
+    let ele = document.querySelectorAll('.buyer-req');
+    ele.forEach( (e) => {
+      e.required = true;
+    })
+
+  </script>
 {% endblock content %}
