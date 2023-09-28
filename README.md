@@ -3,7 +3,7 @@
 This is a inventory management system
 
 - Based on Django Framwork
-  > Django 4.0 \n
+  > Django 4.0
   > Bootstrap 4.6
   > Vanila Javascript
   
