@@ -2,8 +2,8 @@
 
 This is a inventory management system
 
-Details: 
-  The Information Management System (IMS) : :  is a web-based application designed to streamline data management and product cataloging for businesses. It provides a user-friendly interface for efficiently storing and retrieving information, making it a valuable tool for various industries.
+## Details: 
+> The Information Management System (IMS) : :  is a web-based application designed to streamline data management and product cataloging for businesses. It provides a user-friendly interface for efficiently storing and retrieving information, making it a valuable tool for various industries.
 
 ![image](https://github.com/Void-Monarch/IMS/assets/102967317/d4659f1f-fca1-41ff-9f43-e83ab91ff42b)
 
